@@ -9,7 +9,7 @@ import Header from "./components/header/Header";
 import SignInAndSignUp from "./pages/signIn-signUp/signIn-signUp";
 import { auth, createUserProfileDocument, addColletionAndDocuments } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user-actions";
-import {selectCurrentUser} from './redux/user/user-selector'
+import {selectCurrentUser, selectUser} from './redux/user/user-selector'
 import Checkout from "./pages/checkout/Checkout";
 import { selectCollectionsForPreview } from "./redux/shop/shop-selector";
 
@@ -61,9 +61,8 @@ class App extends React.Component {
   }
 }
 
-
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
+  currentUser: selectUser,
   collectionsArray: selectCollectionsForPreview
 });
 
