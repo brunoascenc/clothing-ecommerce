@@ -8,7 +8,7 @@ import logger from "redux-logger";
 import rootReducer from "./root-reducer";
 
 import createSagaMiddleware from 'redux-saga'
-import { fetchCollectionsStart } from "./shop/shop-sagas";
+// import { fetchCollectionsStart } from "./shop/shop-sagas";
 import rootSaga from "./root-saga";
 
 const sagaMiddleware = createSagaMiddleware()

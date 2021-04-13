@@ -27,6 +27,7 @@ function Header({ currentUser, hidden }) {
           <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
         ) : (
           <OptionLink to="/signin">SIGN IN</OptionLink>
+          // <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
         )}
         <CartIcon />
       </OptionsContainer>
