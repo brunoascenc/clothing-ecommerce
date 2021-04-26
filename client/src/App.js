@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import HomePage from "./pages/homepage/HomePage";
-import ShopPage from "./pages/shop/ShopPage";
 import Header from "./components/header/Header";
-import SignInAndSignUp from "./pages/signIn-signUp/signIn-signUp";
 import { selectCurrentUser } from "./redux/user/user-selector";
-import Checkout from "./pages/checkout/Checkout";
 import { checkUserSession } from "./redux/user/user-actions";
 import { GlobalStyle } from "./globalStyles";
+import Spinner from "./components/spinner/spinner-component";
+const HomePage = lazy(() => import("./pages/homepage/HomePage"));
+const ShopPage = lazy(() => import("./pages/shop/ShopPage"));
+const SignInAndSignUp = lazy(() =>
+  import("./pages/signIn-signUp/signIn-signUp")
+);
+const Checkout = lazy(() => import("./pages/checkout/Checkout"));
 
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
@@ -21,16 +24,18 @@ const App = ({ checkUserSession, currentUser }) => {
       <Header />
       <GlobalStyle />
       <Switch>
-        <Route exact path="/" component={HomePage} />{" "}
-        <Route path="/shop" component={ShopPage} />{" "}
-        <Route
-          exact
-          path="/signin"
-          render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
-          }
-        />{" "}
-        <Route exact path="/checkout" component={Checkout} />{" "}
+        <Suspense fallback={<Spinner />}>
+          <Route exact path="/" component={HomePage} />{" "}
+          <Route path="/shop" component={ShopPage} />{" "}
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+            }
+          />{" "}
+          <Route exact path="/checkout" component={Checkout} />{" "}
+        </Suspense>
       </Switch>{" "}
     </div>
   );
